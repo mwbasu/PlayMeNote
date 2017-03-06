@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
     int[] buffer=new int[20];
     TextView textView;
 
-    //sleeper s=new sleeper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
