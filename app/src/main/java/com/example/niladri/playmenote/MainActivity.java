@@ -16,11 +16,11 @@ public class MainActivity extends AppCompatActivity {
 
     SoundPool mySound;
     int count=0,a1Id,a1sId,b1Id,c1Id,c1sId,c2Id,d1Id,d1sId,e1Id,f1Id,f1sId,g1Id,g1sId,sId,i=0;
-    Button buttonA1;
+    Button buttonA1, buttonStop;
     int[] buffer=new int[20];
     TextView textView;
 
-    sleeper s=new sleeper();
+    //sleeper s=new sleeper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         buttonA1=(Button)findViewById(R.id.btnA1);
         textView=(TextView)findViewById(R.id.textView);
+        buttonStop=(Button)findViewById(R.id.stop);
 
         mySound=new SoundPool(2, AudioManager.STREAM_MUSIC, 0);
 
-        for(i=0;i<20;i++){
-            buffer[i]=16;
-        }
+        arrInit();
 
         a1Id=mySound.load(this, R.raw.a1, 1);
         a1sId=mySound.load(this, R.raw.a1s, 1);
@@ -53,6 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void arrInit(){
+        for(i=0;i<20;i++){
+            buffer[i]=16;
+        }
+    }
     public void playA1(View v){
         //mySound.play(a1Id, 1, 1, 1, 0, 1);
         //s.run();
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayA1(){
         mySound.play(a1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playA1s(View v){
         if(count==0){
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayA1s(){
         mySound.play(a1sId, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playB1(View v){
         if(count==0){
@@ -89,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayB1(){
         mySound.play(b1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playC1(View v){
         if(count==0){
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayC1(){
         mySound.play(c1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playC1s(View v){
         if(count==0){
@@ -113,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayC1s(){
         mySound.play(c1sId, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playC2(View v){
         if(count==0){
@@ -125,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayC2(){
         mySound.play(c2Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playD1(View v){
         if(count==0){
@@ -137,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayD1(){
         mySound.play(d1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playD1s(View v){
         if(count==0){
@@ -149,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayD1s(){
         mySound.play(d1sId, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playE1(View v){
         if(count==0){
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayE1(){
         mySound.play(e1Id, 1, 1, 1, 0, 1);
-        s.run();
+       // run();
     }
     public void playF1(View v){
         if(count==0){
@@ -173,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayF1(){
         mySound.play(f1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playF1s(View v){
         if(count==0){
@@ -185,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayF1s(){
         mySound.play(f1sId, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playG1(View v){
         if(count==0){
@@ -197,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayG1(){
         mySound.play(g1Id, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playG1s(View v){
         if(count==0){
@@ -209,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayG1s(){
         mySound.play(g1sId, 1, 1, 1, 0, 1);
-        s.run();
+        //run();
     }
     public void playS(View v){
         if(count==0){
@@ -221,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void onplayS(){
        // mySound.play(sId, 1, 1, 1, 0, 1);
-        s.run();
+        run();
     }
     public void play(View v){
         for(i=0;i<20;i++){
@@ -274,19 +278,38 @@ public class MainActivity extends AppCompatActivity {
         }
         count=0;
         textView.setText(" ");
+        arrInit();
     }
-    public void stop(View v){
-        mySound.stop(a1Id);
-        textView.setText(" ");
-        count=0;
-    }
-}
- class sleeper extends Thread{
+//    public void stop(View v){
+//        mySound.stop(a1Id);
+//        mySound.autoPause();
+//        textView.setText(" ");
+//        count=0;
+//    }
     public void run(){
         try {
             Thread.sleep(500);
+            buttonStop.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mySound.autoPause();
+                    textView.setText(" ");
+                    count=0;
+                    arrInit();
+                }
+            });
         }catch (InterruptedException e){
             Log.d("T1","sleep");
         }
     }
 }
+// class sleeper extends Thread{
+//    public void run(){
+//        try {
+//            Thread.sleep(500);
+//        }catch (InterruptedException e){
+//            Log.d("T1","sleep");
+//        }
+//
+//    }
+//}
